@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "611515092800",
+    "project_id": "geminos-flutter",
+    "storage_bucket": "geminos-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611515092800:android:9437503ae87255d09cf4a5",
+        "android_client_info": {
+          "package_name": "com.example.geminos_group"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611515092800-3cugb1ssa7mcm57hae8rq4mj10nqjai7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.geminos_group",
+            "certificate_hash": "7a45f3e875502d7aab12e736f5378cca7836ce0d"
+          }
+        },
+        {
+          "client_id": "611515092800-a8jbg05ev7iggoljgc18fmtetrss4o5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwmrmo3bAEEl1sCz0ckj_v01fPVsBVOks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611515092800-a8jbg05ev7iggoljgc18fmtetrss4o5r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "611515092800-udjmmbh91pgvsord1etht4qd40d1c5sf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.geminosGroup"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

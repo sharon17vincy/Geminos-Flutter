@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>611515092800-udjmmbh91pgvsord1etht4qd40d1c5sf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.611515092800-udjmmbh91pgvsord1etht4qd40d1c5sf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>611515092800-3cugb1ssa7mcm57hae8rq4mj10nqjai7.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDxtHYSqQJmwJpxv28CIxWRJ4UxhoeTmyM</string>
+	<key>CFBundleURLTypes</key>
+    <array>
+    	<dict>
+    		<key>CFBundleTypeRole</key>
+    		<string>Editor</string>
+    		<key>CFBundleURLSchemes</key>
+    		<array>
+    			<string>com.googleusercontent.apps.611515092800-udjmmbh91pgvsord1etht4qd40d1c5sf</string>
+    		</array>
+    	</dict>
+    </array>
+	<key>GCM_SENDER_ID</key>
+	<string>611515092800</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.geminosGroup</string>
+	<key>PROJECT_ID</key>
+	<string>geminos-flutter</string>
+	<key>STORAGE_BUCKET</key>
+	<string>geminos-flutter.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>FirebaseAppDelegateProxyEnabled
+    <false/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:611515092800:ios:70d7c27c9df101b59cf4a5</string>
+</dict>
+</plist>
