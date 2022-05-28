@@ -97,9 +97,9 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
         if (_notificationInfo != null) {
           // For displaying the notification as an overlay
           showSimpleNotification(
-            Text(_notificationInfo.title!),
+            Text(_notificationInfo.title!, style: titleNormalBoldStyle.copyWith(fontSize: 16, fontStyle: FontStyle.italic)),
             leading: Image.asset('assets/images/logo_geminos.png', width: 80, height: 50,),
-            subtitle: Text(_notificationInfo.body!),
+            subtitle: Text(_notificationInfo.body!,style: normalTextStyle.copyWith(fontSize: 14, color: Colors.grey, fontStyle: FontStyle.italic)),
             background: Colors.white,
             duration: Duration(seconds: 4),
           );
