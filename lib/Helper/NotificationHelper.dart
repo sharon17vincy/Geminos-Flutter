@@ -10,11 +10,13 @@ class NotificationHelper {
       return false;
     }
 
+    print(token);
+
     final response =await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
         headers: <String, String>{
           'Content-Type': 'application/json',
           //TODO add server key here
-          'Authorization': 'key=',
+          'Authorization': 'key=AAAAjmEjz0A:APA91bFaMOJlTJrWLk2Ew5AWYjPDDHblvYILgwT2tgpcuvYLqwjz3ycKZfqTW8yuL91s--H3VEJxscNOb9ZzMTcOmSuLAL25ivmdo-WSjV785QgrZoQu1aS2GyNoBHIjTdrO5d8C4QQT',
         },
         body: jsonEncode({
           'notification': <String, dynamic>{

@@ -26,7 +26,6 @@ class LoginWithPhone extends StatefulWidget {
 class _LoginWithPhoneState extends State<LoginWithPhone> with LoadingStateMixin{
   TextEditingController otpController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
-  late AnimationController _controller;
 
   bool otpVisibility = false;
 
@@ -45,7 +44,6 @@ class _LoginWithPhoneState extends State<LoginWithPhone> with LoadingStateMixin{
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -439,7 +437,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> with LoadingStateMixin{
   void sendOTP() async {
     setLoading(true);
     auth.verifyPhoneNumber(
-      phoneNumber: phoneNo,
+      phoneNumber: countryCode + phoneController.text,
       verificationCompleted: (PhoneAuthCredential credential) async {
         await auth.signInWithCredential(credential).then((value){
           print("logged in successfully");

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geminos_group/Helper/NotificationHelper.dart';
@@ -22,6 +23,8 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
   late final FirebaseMessaging _messaging;
   late PushNotification _notificationInfo = PushNotification();
   String token = "";
+  final fs = FirebaseFirestore.instance;
+
 
 
   @override
@@ -40,6 +43,16 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
     checkForInitialMessage();
     super.initState();
   }
+
+  Future<bool> addToken() async {
+    await fs.collection("notifications").add({
+      'email': widget.user.user!.email,
+      'time': DateTime.now(),
+      'token': token,
+    });
+    return true;
+  }
+
 
   checkForInitialMessage() async {
     RemoteMessage? initialMessage =
@@ -62,15 +75,12 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
   }
 
   void registerNotification() async {
-    // 1. Initialize the Firebase app
     await Firebase.initializeApp();
 
-    // 2. Instantiate Firebase Messaging
     _messaging = FirebaseMessaging.instance;
 
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-    // 3. On iOS, this helps to take the user permissions
     NotificationSettings settings = await _messaging.requestPermission(
       alert: true,
       badge: true,
@@ -81,10 +91,8 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('User granted permission');
 
-      // For handling the received notifications
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         print(message);
-        // Parse the message received
         PushNotification notification = PushNotification(
           title: message.notification?.title,
           body: message.notification?.body,
@@ -95,7 +103,6 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
         });
 
         if (_notificationInfo != null) {
-          // For displaying the notification as an overlay
           showSimpleNotification(
             Text(_notificationInfo.title!, style: titleNormalBoldStyle.copyWith(fontSize: 16, fontStyle: FontStyle.italic)),
             leading: Image.asset('assets/images/logo_geminos.png', width: 80, height: 50,),
@@ -110,7 +117,10 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
       print('User has not accepted permission');
     }
 
+    _messaging.subscribeToTopic('all');
     token  = await _messaging.getToken() as String;
+    addToken();
+
     print(token);
   }
 
@@ -188,7 +198,7 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
                   child: Container(
                     color: Colors.transparent,
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(8.0),
                       child:  Row(
                         children: [
                           Container(
@@ -213,18 +223,19 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
                               ],
                             ),
                           ),
-                          const SizedBox(width: 16),
+                          const SizedBox(width: 8),
                           Padding(padding: EdgeInsets.only(top: 16,bottom: 16 ),
                               child :  Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(widget.user.user!.displayName!.isNotEmpty ? widget.user.user!.displayName.toString() : "-", style: normalTextStyle.copyWith(fontWeight: FontWeight.w500),),
-                                  Text(widget.user.user!.email.toString().isNotEmpty ? widget.user.user!.email.toString() : "-", style: normalStyle.copyWith(color: const Color(0xFF575757)),)
+                                  Text(widget.user.user!.displayName!.isNotEmpty ? widget.user.user!.displayName.toString() : "-", maxLines: 1,
+                              overflow: TextOverflow.ellipsis,style: normalTextStyle.copyWith(fontWeight: FontWeight.w500),),
+                                  Text(widget.user.user!.email.toString().isNotEmpty ? widget.user.user!.email.toString() : "-", maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,style: normalStyle.copyWith(color: const Color(0xFF575757)),)
 
                                 ],
                               ))
-
                         ],
                       )
                     ),
@@ -253,70 +264,10 @@ class _HomePageState extends State<HomePage> with LoadingStateMixin{
                     },
                     child: SolidButton(title : "CLOUD NOTIFICATION", loading: loading, width: MediaQuery.of(context).size.width/1.7, solid: true,onTap: (){},)),
               )
-
-
-
-    ],
+            ],
           ),
         ],
       ),
-
-
-      // Stack(
-      //   children: <Widget>[
-      //     Container(
-      //         height: 200.0,
-      //         decoration: BoxDecoration(
-      //             borderRadius: BorderRadius.circular(20.0),
-      //             color: appTheme.primaryColorDark
-      //         )),
-      //     Positioned(
-      //       top: 170,
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: Container(
-      //           height: 200,
-      //           padding: const EdgeInsets.all(16),
-      //           width: MediaQuery.of(context).size.width/2,
-      //           color: Colors.red,
-      //           child: Text("Press Me"),
-      //         ),
-      //       ),
-      //     )
-      //   ],
-      // )
-
-
-      // Padding(
-      //   padding: const EdgeInsets.all(16.0),
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     crossAxisAlignment: CrossAxisAlignment.center,
-      //
-      //     children: [
-      //       Text(
-      //         "WELCOME",
-      //         textAlign: TextAlign.center,
-      //         style: titleSemiBoldStyle.copyWith(fontSize: 24,)
-      //       ),
-      //       Text(
-      //           widget.user.user!.displayName.toString(),
-      //           textAlign: TextAlign.center,
-      //           style: normalStyle.copyWith(color : appTheme.primaryColorDark, fontSize: 24,)
-      //       ),
-      //       SizedBox(height: 16.0),
-      //       NotificationBadge(totalNotifications: _totalNotifications),
-      //       SizedBox(height: 16.0),
-      //       SizedBox(height: 8.0),
-      //       Text(
-      //         'BODY: ${_notificationInfo.body}',
-      //         style: const TextStyle(
-      //           fontWeight: FontWeight.bold,
-      //           fontSize: 16.0,
-      //         ),
-      //       ),        ],
-      //   ),
-      // ),
     );
   }
 }
